@@ -1,0 +1,55 @@
+CREATE DATABASE employee;
+use employee;
+
+CREATE TABLE EMPLOYEE_INFO(empid INTEGER PRIMARY KEY, empname VARCHAR(50) NOT NULL, empsalary decimal(10,2)not null, job varchar (50), phone varchar(50), deptid integer);
+
+	select * from EMPLOYEE_INFO;
+
+
+insert into EMPLOYEE_INFO values(01,'shubham',12000,'trainee',8668582779,100);
+insert into EMPLOYEE_INFO values(04,'swarup',14000,'trainee',668582779,300);
+insert into EMPLOYEE_INFO values(05,'shubham',12000,'trainee',8668582779,100);
+
+
+
+insert into EMPLOYEE_INFO (empid, empname,empsalary,deptid)
+values(03,'shubham',12000,100);
+
+
+update EMPLOYEE_INFO
+SET empsalary = empsalary + 1000;
+
+update EMPLOYEE_INFO
+set phone=8668582755
+where empname= 'akshay';
+
+update EMPLOYEE_INFO
+set phone=897979846,job='trainee'
+where empid=3;
+
+
+update EMPLOYEE_INFO
+set empname='pranshu',phone=9209332307,job='DOCTOR'
+where empid=3;
+
+select * from EMPLOYEE_INFO  ORDER BY empsalary desc;
+select * from EMPLOYEE_INFO  order by empid ;
+	
+alter table EMPLOYEE_INFO add location varchar(10);
+alter table EMPLOYEE_INFO add date date
+
+
+delete from EMPLOYEE_INFO where empid=5
+
+
+update EMPLOYEE_INFO
+set location='pune', date='2023-08-08'
+where empid=1
+
+update EMPLOYEE_INFO
+set location='chandrapur', date='2023-08-08'
+where empid=2
+
+select top 5* from EMPLOYEE_INFO;
+
+select *  from EMPLOYEE_INFO where empname like 's%';

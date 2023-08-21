@@ -1,0 +1,80 @@
+
+create database vehicalticket
+use vehicalticket
+
+
+
+CREATE TABLE Vehicle ( VehicleID INT IDENTITY(200, 1), VehicleNoPlate VARCHAR(50), OwnerName VARCHAR(50),ContactNo VARCHAR(10), CreatedOn DATETIME DEFAULT GETDATE());
+CREATE TABLE ParkingSpace ( SpaceID INT IDENTITY(400, 1),NOOFSPACE INT,CreatedOn DATETIME DEFAULT GETDATE());
+CREATE TABLE ParkingTicket (TicketID INT IDENTITY(300, 1),VehicleID int,SpaceID INT,EntryDateTime DATETIME, ExitDateTime DATETIME, CreatedOn DATETIME DEFAULT GETDATE());
+create table Totalamount (amountid int identity(500,1),TicketID int,vehicalname varchar(50),amount varchar(50),parkingduration varchar(50))
+
+
+
+exec Vehicle1 0,'MH34 GD 0009','SHUBHAM','8668582779','I'
+exec Vehicle1 0,'MH01 FD 0007','AKSHAY','9868582779','I'
+exec Vehicle1 0,'MH12 SD 8855','RAHUL','6668582779','I'
+exec Vehicle1 0,'GJ YD 9999','GUNJAN','7668582779','I'
+exec Vehicle1 0,'GJ QD 0001','ROHIT','8468582779','I'
+exec Vehicle1 0,'MH34 JH 5555','DIPAK','7068582779','I'
+
+
+exec ParkingSpace1 0,400,'I'
+DROP TABLE ParkingTicket
+
+exec ParkingTicket12 0,200,400,'2023-08-21','2023-08-21','I'
+exec ParkingTicket12 0,201,401,'2023-08-21','2023-08-21','I'
+exec ParkingTicket12 0,202,402,'2023-08-20','2023-08-20','I'
+exec ParkingTicket12 0,203,403,'2023-08-22','2023-08-22','I'
+exec ParkingTicket12 0,204,404,'2023-08-21','2023-08-21','I'
+exec ParkingTicket12 0,,205,405,'2023-08-24','2023-08-24','I'
+
+
+
+insert into Totalamount values (300,'THAR',50,120)
+insert into Totalamount values (301,'THAR',50,360)
+insert into Totalamount values (302,'FORTUNER',50,60)
+insert into Totalamount values (303,'BMW',50,240)
+insert into Totalamount values (304,'BENTLY',50,480)
+insert into Totalamount values (305,'AUDI',50,540)
+insert into Totalamount values (306,'MINI COPPER',50,180)
+
+
+
+
+select *from Vehicle
+select *from ParkingSpace
+select *from ParkingTicket
+select *from Totalamount
+
+
+
+create TRIGGER total
+ON Totalamount
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @newParkingDuration INT;
+    SELECT @newParkingDuration = parkingduration FROM inserted;
+
+    DECLARE @newAmount DECIMAL(10, 2);
+    SET @newAmount = @newParkingDuration / 60.0;
+
+    DECLARE @newAmountId INT;
+    SELECT @newAmountId = amountid FROM inserted;
+
+    UPDATE Totalamount
+    SET amount = @newAmount*amount
+    WHERE amountid = @newAmountId;
+
+  UPDATE ParkingSpace
+    SET NOOFSPACE = NOOFSPACE - 1
+    WHERE SpaceID = 400;
+	
+	END
+
+
+
+
+
+  

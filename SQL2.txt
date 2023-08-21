@@ -1,0 +1,139 @@
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- ============================================
+create PROCEDURE vname14
+	@vnameid int,
+    @owenername varchar(50),
+    @contactno varchar(10),
+    @loc varchar(50),
+    @type varchar(50)
+    
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	
+    if (@vnameid=0 or @type='i')
+    begin
+        insert into vname values (@owenername, @contactno, @loc,GETDATE())
+    end
+	ELSE
+	begin
+	if (@type='u')
+    begin
+        update vname
+        set owenername = @owenername, contactno = @contactno, loc = @loc 
+        where vnameid = @vnameid
+    end
+	ELSE
+	begin
+
+    if (@type='d')
+    begin
+    delete from vname where vnameid = @vnameid
+    end
+	end
+	end
+END
+GO
+
+
+create PROCEDURE vehical1
+@vehicalid int,
+@vehicalnoplate varchar(50),
+@vnameid int,
+@vehicalname varchar(50),
+@type varchar(50)
+    
+AS
+BEGIN
+
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	
+    if (@vehicalid=0 or @type='i')
+    begin
+        insert into vehical values (@vehicalnoplate, @vnameid, @vehicalname,GETDATE())
+    end
+	ELSE
+	begin
+	if (@type='u')
+    begin
+        update vehical
+        set vehicalnoplate = @vehicalnoplate, vnameid = @vnameid, vehicalname = @vehicalname 
+        where @vehicalid = @vehicalid
+    end
+	ELSE
+	begin
+
+    if (@type='d')
+    begin
+    delete from vehical where @vehicalid = @vehicalid
+    end
+	end
+	end
+END
+GO
+
+
+
+create PROCEDURE parkingticket1
+@parkingticketid int,
+@vehicalid int,
+@vnameid int,
+@issuedate date,
+@amount decimal(10,1),
+@type varchar(50)
+    
+AS
+BEGIN
+
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	
+    if (@parkingticketid=0 or @type='i')
+    begin
+        insert into parkingticket values (@vehicalid,@vnameid,@issuedate,@amount,GETDATE())
+    end
+	ELSE
+	begin
+	if (@type='u')
+    begin
+        update parkingticket
+        set vehicalid=@vehicalid,vnameid=@vnameid,issuedate=@issuedate,amount=@amount
+        where parkingticketid=@parkingticketid
+    end
+	ELSE
+	begin
+
+    if (@type='d')
+    begin
+    delete from parkingticket where parkingticketid=@parkingticketid
+    end
+	end
+	end
+END
+GO

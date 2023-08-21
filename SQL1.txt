@@ -1,0 +1,126 @@
+create database prak
+use prak
+
+create table vname(vnameid int identity(10,1),owenername varchar(50),contactno varchar (10),loc varchar(50),createdon datetime default getdate())
+
+--DROP TABLE ow
+create table vehical(vehicalid int identity(200,1),vehicalnoplate varchar(50),vnameid int,vehicalname varchar(50),createdon datetime default getdate())
+
+--drop table vehical
+create table parkingticket(parkingticketid int identity(300,1),vehicalid int,vnameid int,issuedate date,amount decimal(10,1),createdon datetime default getdate())
+
+
+--table trigger
+create trigger t2
+on vname after insert as
+begin 
+print 'trigger'
+end
+
+--alter trigger
+
+alter trigger t2
+on vname after insert as
+begin 
+select * from inserted
+end
+
+--delete trigger
+create trigger t2delete
+on 
+vname after delete as begin
+select * from deleted
+end
+
+--delete data
+delete from vname where vnameid = 1017
+delete from vname where vnameid = 1015
+delete from vname where vnameid = 1016
+
+
+--insert data vname
+exec vname1 0,'pranshu','984444458','nagur','i'
+exec vname1 0,'shubham','8668582779','pune','i'
+exec vname1 0,'akshay','9890699804','pune','i'
+exec vname1 0,'abhishek','6068582779','banglore','i'
+exec vname1 0,'rohit','8868582779','mumbai','i'
+exec vname1 13,'rohit','8868582779','mumbai','i'
+exec vname1 0,'pranav','7845454655','chandrapur','i'
+exec vname1 0,'ashu','7845454655','chandrapur','i'
+exec vname1 0,'gunjan','7845454655','chandrapur','i'
+exec vname1 0,'swarup','7845454655','bpq','i'
+
+
+--update data vname
+
+exec vname1 14,'shubham','8668582779','bbb','u'
+
+--delete data vname
+exec vname1 14,'shubham','8668582779','bbb','d'
+
+
+--insert data vehical
+exec vehical1 0,'MH34FF555',10,'r15','i'
+exec vehical1 0,'MH34FF855',11,'pulsur','i'
+exec vehical1 0,'MH34FF755',12,'ninja','i'
+exec vehical1 0,'MH34FF655',13,'hunter','i'
+exec vehical1 0,'MH34FF255',14,'r15','i'
+exec vehical1 0,'MH34FF455',14,'bukati','i'
+
+--UPDATE TABLE VEHICAL
+exec vehical1 206,'MH34FF355',14,'r15','u'
+exec vehical1 206,'MH34FF155',14,'bukati','u'
+
+--DELETE TABLE VEHICAL
+exec vehical1 206,'MH34FF955',14,'bukati','d'
+
+
+
+exec vehical1 201,
+
+
+select *from parkingticket
+
+--INSET DATA PAKINGTICKET
+exec parkingticket1 0,208,10,'2023-08-15',50,'i'
+exec parkingticket1 0,209,11,'2023-08-15',50,'i'
+exec parkingticket1 0,210,12,'2023-08-15',50,'i'
+exec parkingticket1 0,211,13,'2023-08-15',50,'i'
+
+
+--delete
+exec parkingticket2 1302,208,10,'2023-08-15',50,'d'
+
+
+--update
+
+exec parkingticket2 1306,208,14,'2023-08-15',50,'d'
+
+
+
+select *
+from parkingticket pt
+inner join vehical v on pt.vehicalid = v.vehicalid
+inner join vname vn on pt.vnameid = vn.vnameid;
+
+select * from parkingticket p
+inner join vehical v on p.vehicalid=v.vehicalid
+inner join vname vn on p.vnameid=vn.vnameid;
+
+SELECT AVG(amount) AS average_amount
+FROM parkingticket;
+
+SELECT sum (amount)
+FROM parkingticket;
+
+
+SELECT count (amount)
+FROM parkingticket;
+
+
+SELECT sum (amount)
+FROM parkingticket where parkingticketid=300 and parkingticketid=301;
+
+
+
+
