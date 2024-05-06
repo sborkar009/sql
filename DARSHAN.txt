@@ -1,0 +1,168 @@
+
+  //Sub Member Submit
+  // subMemberSubmit(event: any) {
+  //   this.showLoader = true;
+
+  //   if(this.editMode==true){
+
+  //   const body = {
+  //     subMemberId: this.subMemberId,
+  //     memberName: event.name,
+  //     mobileNo: event.mobile,
+  //     gender: event.gender,
+  //     dateOfBirth: event.dob,
+  //     imgBase64: this.image,
+  //     imgName: this.imageName,
+  //     imgType: this.imageType,
+  //   };
+
+  //   this.subMemberService.UpdateSubmember(body).subscribe((data) => {
+  //     this.showLoader = false;
+  //     this.getAllSubmemberOfMainMember();
+
+  //   });
+  // }
+
+  // else{
+  //   const body = {
+  //     subMemberId: this.subMemberId == '' ? Guid.EMPTY : this.subMemberId,
+  //     memberName: event.name,
+  //     mobileNo: event.mobile,
+  //     gender: event.gender,
+  //     dateOfBirth: event.dob,
+  //     imgBase64: this.image,
+  //     imgName: this.imageName,
+  //     imgType: this.imageType,
+  //   };
+
+  //  // this.subMemberService.SaveData(body).subscribe((data) => {
+  //     this.subMemberService.AddsubMember(body).subscribe((data) => {
+  //       this.showLoader = false;
+  //    this.getAllSubmemberOfMainMember();
+
+  //   });
+  // }
+  // }
+
+
+
+
+ //public async Task<ApiResponse> AddsubMember(SubMemberReq subMemberReq, Guid memberid)
+ //{
+ //    using (var _sqlConnection = new SqlConnection(_configDbSettings.ConnectionString))
+
+ //    {
+ //        try
+ //        {
+ //            var _submemberRepository = new Repository<SubMember>(_sqlConnection);
+ //            Guid _onlineBookingUserId = Guid.Parse(Cache.GetSystemSettingValue("NTBMSBookingUserId", _configDbSettings));
+ //            if (!string.IsNullOrEmpty(subMemberReq.ImgBase64))
+ //            {
+ //                byte[] bytes = Convert.FromBase64String(subMemberReq.ImgBase64);
+ //                MemoryStream stream = new MemoryStream(bytes);
+ //                subMemberReq.Image = new FormFile(stream, 0, bytes.Length, subMemberReq.ImgType, subMemberReq.ImgName);
+
+ //                if (!string.IsNullOrEmpty(subMemberReq.ImgType) && !string.IsNullOrEmpty(subMemberReq.ImgName))
+ //                {
+ //                    var MongoImageId = _logRepository.UploadFile(new FileBase
+ //                    {
+ //                        FileName = subMemberReq.Image.FileName,
+ //                        FileType = subMemberReq.Image.Name,
+ //                        FileSize = subMemberReq.Image.Length,
+ //                        Contents = subMemberReq.Image.GetBytes()
+ //                    }).Result.ToString();
+
+ //                   // submember.ImageId = subMemberReq.ImageId;
+
+ //                 //   await _submemberRepository.UpdateAsync(submember, "ImageId");
+ //                }
+ //            }
+ //            //var MongoImageId = _logRepository.UploadFile(new FileBase
+ //            //{
+ //            //    FileName = subMemberReq.Image.FileName,
+ //            //    FileType = subMemberReq.Image.Name,
+ //            //    FileSize = subMemberReq.Image.Length,
+ //            //    Contents = subMemberReq.Image.GetBytes()
+ //            //}).Result;
+ //            //var _memberauthenticationRepository = new Repository<AuthData>(_sqlConnection);
+ //            var submember = new SubMember()
+ //            {
+ //                SubMemberId = Guid.NewGuid(),
+ //                MemberName = subMemberReq.MemberName,
+ //                MobileNo = subMemberReq.MobileNo,
+ //                Gender = subMemberReq.Gender,
+ //                //DateOfBirth = subMemberReq.DateOfBirth ?? DateTime.Now,
+ //                DateOfBirth = subMemberReq.DateOfBirth,
+ //                //ImageId = subMemberReq.ImageId,
+ //                MemberId= memberid,
+ //                VersionNo = 1,
+ //                InsertDate = DateTime.Now,
+ //                InsertUserId = _onlineBookingUserId,
+ //                ImageId = subMemberReq.ImageId,
+
+
+ //            };
+
+
+ //            Guid memberId = (Guid)await _submemberRepository.AddAsync(submember);//(submember, "member_name,mobile_no,gender,date_of_birth");
+
+ //                if (memberId != Guid.Empty)
+ //                { 
+ //                //    return new ApiResponse(true, "Record added successfully", memberId);
+ //                //else
+ //                //    return new ApiResponse(false, "Error in submember add", null);
+ //                //var memberauthentication = new AuthData
+ //                //{
+ //                //    MemberId = memberId,
+ //                //    AuthenticationData = CodeGenerator.GetSwcSH1(saveDataRequestModel.Password),
+ //                //    //CreatedBy = _appSettings.OnlineServiceUserId
+ //                //};
+ //                //  await _memberauthenticationRepository.AddAsync(saveDataRequestModel);
+ //                //if (!string.IsNullOrEmpty(subMemberReq.ImgBase64))
+ //                //{
+ //                //    byte[] bytes = Convert.FromBase64String(subMemberReq.ImgBase64);
+ //                //    MemoryStream stream = new MemoryStream(bytes);
+ //                //    subMemberReq.Image = new FormFile(stream, 0, bytes.Length, subMemberReq.ImgType, subMemberReq.ImgName);
+
+ //                //    if (!string.IsNullOrEmpty(subMemberReq.ImgType) && !string.IsNullOrEmpty(subMemberReq.ImgName))
+ //                //    {
+ //                //        subMemberReq.ImageId = _logRepository.UploadFile(new FileBase
+ //                //        {
+ //                //            FileName = subMemberReq.Image.FileName,
+ //                //            FileType = subMemberReq.Image.Name,
+ //                //            FileSize = subMemberReq.Image.Length,
+ //                //            Contents = subMemberReq.Image.GetBytes()
+ //                //        }).Result.ToString();
+
+ //                //        submember.ImageId = subMemberReq.ImageId;
+
+ //                //        await _submemberRepository.UpdateAsync(submember, "ImageId");
+ //                //    }
+ //                //}
+ //                ApiResponse apiResponse = new ApiResponse()
+ //                {
+ //                    IsSuccess = true,
+ //                    Message = " registration successful",
+ //                    Data = new
+ //                    {
+ //                        //memberId,
+ //                        fullName = submember.MemberName ,
+
+ //                    }
+ //                };
+ //                return new ApiResponse(true, "success", null);
+ //            }
+ //             else
+ //            {
+ //                // Respond with failure message
+ //                return new ApiResponse(false, "Error in submember add", null);
+ //            }
+ //        }
+ //        catch (Exception ex)
+ //        {
+ //            Log.Error(ex, "Error in AddMember");
+ //            return new ApiResponse(false, "Internal server error", null);
+ //        }
+ //    }
+ //}
+
